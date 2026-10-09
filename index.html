@@ -96,6 +96,22 @@ Más que documentar la ciudad, la serie busca resignificarla.
 </section>
 <script>
 const obras=Array.from({length:14},(_,i)=>String(i+1).padStart(2,'0')+'.png');
+  const titulos = [
+"TORRE IRSA",
+"TORRE QIUB",
+"BARRIO CHINO",
+"FADU",
+"EDIFICIO BENCICH",
+"EDIFICIO KAVANAGH",
+"PUERTO MADERO",
+"TRUST RELOJERO",
+"FLORALIS GENÉRICA",
+"MALBA PUERTOS",
+"PUERTO MADERO II",
+"CERO + INFINITO",
+"BIBLIOTECA NACIONAL",
+"EXACTAS"
+];
 let actual=0;
 const cover=document.getElementById('cover'),gallery=document.getElementById('gallery'),photo=document.getElementById('photo'),counter=document.getElementById('counter');
 function mostrar(){photo.src=obras[actual];photo.alt=`Obra ${actual+1} de ${obras.length}`;counter.textContent=`${actual+1} / ${obras.length}`;}
