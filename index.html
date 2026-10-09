@@ -1,1 +1,43 @@
-
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Buenos Aires Intervenida</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#111;color:#fff;font-family:Arial,Helvetica,sans-serif}button{font:inherit}
+.cover{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:#111}.cover.hide{display:none}.cover h1{margin:0 0 14px;font-size:clamp(2rem,7vw,5rem);letter-spacing:.08em}.cover .sub{margin:0;color:#ccc;font-size:clamp(1rem,2.5vw,1.35rem);font-style:italic}.cover .author{margin:18px 0 30px;color:#aaa}.enter{border:1px solid #fff;background:#fff;color:#111;padding:13px 25px;border-radius:3px;cursor:pointer}
+.gallery{display:none;position:fixed;inset:0;background:#111}.gallery.show{display:block}.art{width:100%;height:100%;object-fit:contain;padding:42px 64px 58px}.nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:48px;height:64px;border:0;background:rgba(0,0,0,.45);color:#fff;font-size:38px;cursor:pointer}.prev{left:8px}.next{right:8px}.counter{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);padding:7px 12px;border-radius:20px;background:rgba(0,0,0,.55);color:#ddd;font-size:14px}.home{position:absolute;top:12px;left:12px;z-index:3;border:0;background:rgba(0,0,0,.55);color:#fff;padding:9px 12px;border-radius:3px;cursor:pointer}
+@media(max-width:700px){.art{padding:52px 12px 64px}.nav{top:auto;bottom:8px;transform:none;height:44px;width:50px;font-size:28px}.prev{left:12px}.next{right:12px}.counter{bottom:14px}}
+</style>
+</head>
+<body>
+<section id="cover" class="cover">
+  <h1>BUENOS AIRES INTERVENIDA</h1>
+  <p class="sub">13 miradas sobre la ciudad</p>
+  <p class="author">Leonardo Tambussi</p>
+  <button class="enter" id="enter">Ingresar a la muestra</button>
+</section>
+<section id="gallery" class="gallery" aria-label="Galería de obras">
+  <button class="home" id="home">Inicio</button>
+  <button class="nav prev" id="prev" aria-label="Obra anterior">&#10094;</button>
+  <img id="photo" class="art" src="01.png" alt="Obra 1 de la muestra Buenos Aires Intervenida">
+  <button class="nav next" id="next" aria-label="Obra siguiente">&#10095;</button>
+  <div id="counter" class="counter">1 / 14</div>
+</section>
+<script>
+const obras=Array.from({length:14},(_,i)=>String(i+1).padStart(2,'0')+'.png');
+let actual=0;
+const cover=document.getElementById('cover'),gallery=document.getElementById('gallery'),photo=document.getElementById('photo'),counter=document.getElementById('counter');
+function mostrar(){photo.src=obras[actual];photo.alt=`Obra ${actual+1} de ${obras.length}`;counter.textContent=`${actual+1} / ${obras.length}`;}
+function entrar(){cover.classList.add('hide');gallery.classList.add('show');mostrar();}
+function inicio(){gallery.classList.remove('show');cover.classList.remove('hide');}
+function siguiente(){actual=(actual+1)%obras.length;mostrar();}
+function anterior(){actual=(actual-1+obras.length)%obras.length;mostrar();}
+document.getElementById('enter').addEventListener('click',entrar);document.getElementById('home').addEventListener('click',inicio);document.getElementById('next').addEventListener('click',siguiente);document.getElementById('prev').addEventListener('click',anterior);
+document.addEventListener('keydown',e=>{if(!gallery.classList.contains('show'))return;if(e.key==='ArrowRight')siguiente();if(e.key==='ArrowLeft')anterior();if(e.key==='Escape')inicio();});
+let x=0;gallery.addEventListener('touchstart',e=>x=e.changedTouches[0].screenX,{passive:true});gallery.addEventListener('touchend',e=>{const d=e.changedTouches[0].screenX-x;if(Math.abs(d)>45)(d<0?siguiente:anterior)();},{passive:true});
+obras.forEach(src=>{const i=new Image();i.src=src;});
+</script>
+</body>
+</html>
