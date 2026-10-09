@@ -118,6 +118,8 @@ function mostrar(){
 photo.src=obras[actual];
 photo.alt=`Obra ${actual+1} de ${obras.length}`;
 counter.textContent=`${actual+1} / ${obras.length}`;
+  document.getElementById("titulo-obra").textContent =
+titulos[actual];
 }
 document.getElementById('enter').addEventListener('click',entrar);document.getElementById('home').addEventListener('click',inicio);document.getElementById('next').addEventListener('click',siguiente);document.getElementById('prev').addEventListener('click',anterior);
 document.addEventListener('keydown',e=>{if(!gallery.classList.contains('show'))return;if(e.key==='ArrowRight')siguiente();if(e.key==='ArrowLeft')anterior();if(e.key==='Escape')inicio();});
