@@ -115,7 +115,37 @@ const obras=Array.from({length:14},(_,i)=>String(i+1).padStart(2,'0')+'.png');
 let actual=0;
 const cover=document.getElementById('cover'),gallery=document.getElementById('gallery'),photo=document.getElementById('photo'),counter=document.getElementById('counter');
 function mostrar(){
+
 photo.src=obras[actual];
+
+photo.alt=`Obra ${actual+1} de ${obras.length}`;
+
+counter.textContent=`${actual+1} / ${obras.length}`;
+
+document.getElementById("titulo-obra").textContent =
+titulos[actual];
+
+}
+
+function entrar(){
+
+cover.classList.add('hide');
+
+gallery.classList.add('show');
+
+mostrar();
+
+}
+
+function siguiente(){
+actual=(actual+1)%obras.length;
+mostrar();
+}
+
+function anterior(){
+actual=(actual-1+obras.length)%obras.length;
+mostrar();
+}photo.src=obras[actual];
 photo.alt=`Obra ${actual+1} de ${obras.length}`;
 counter.textContent=`${actual+1} / ${obras.length}`;
   document.getElementById("titulo-obra").textContent =
